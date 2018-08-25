@@ -1,0 +1,9 @@
+# Deployment virtualenv
+/venv
+
+# Compiled Python
+*.pyc
+__pycache__
+build/
+dist/
+webhooks_git_automata.egg-info/
