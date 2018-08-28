@@ -33,6 +33,16 @@ source /path/to/venv/bin/activate
 Settings
 --------
 
+Extra CLI features
+------------------
+
+To force both the pull and the execution of commands without a deployment, you can use 
+the built-in `wh-git-trigger` command. Example usage:
+
+    wh-git-trigger /path/to/setings.yaml myrepoentry
+    
+This will force the git pull and execute the commands. Future versions of this tool will 
+include more fine-grain control --e.g. avoid fetch, dry-run, display status information...
 
 Implementation details
 ----------------------

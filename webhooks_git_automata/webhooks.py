@@ -7,6 +7,7 @@ from flask import Flask
 
 from .settings import Configuration
 from .worker import async_worker
+from .automata import Automata
 from . import providers
 
 
@@ -39,3 +40,18 @@ def main_func():
     app.add_url_rule('/webhook', 'webhook', webhook, methods=['POST'])
     app.run(host=Configuration.listen_ip,
             port=Configuration.listen_port)
+
+
+def manual_trigger():
+    if len(sys.argv) != 3:
+        raise RuntimeError("You should provide the path to the settings YAML file as first argument "
+                           "and the repository entry name (YAML key) that will be triggered")
+
+    Configuration.load(sys.argv[1])
+    try:
+        automaton = Automata[sys.argv[2]]
+    except KeyError:
+        raise RuntimeError("Unrecognized repository name '%s'" % sys.argv[2])
+
+    automaton.pull_sources()
+    automaton.perform_commands()

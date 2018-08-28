@@ -10,6 +10,9 @@ class MetaAutomata(type):
 
     When Automata[<repo>, <branch>] is called, the corresponding Automaton
     instance is returned ready to be used by the worker.
+
+    The alias Automata[<name_as_in_yaml>] is also stored, and used by the
+    manual trigger entrypoint. See also webhooks.manual_trigger
     """
     actions = dict()
 
@@ -23,7 +26,11 @@ class MetaAutomata(type):
             repo = automaton.pop("repo", name)
             branch = automaton.pop("branch", "master")
 
-            cls.actions[repo, branch] = cls(automaton, repo, branch)
+            instance = cls(automaton, repo, branch)
+
+            # Store both lookups
+            cls.actions[repo, branch] = instance
+            cls.actions[name] = instance
 
 
 class Automata(object, metaclass=MetaAutomata):
