@@ -42,6 +42,13 @@ def webhook_github(secret):
         raise SystemError("No `secret` configured, refusing to accept petition")
 
     try:
+        # We need a bytes object, if secret is a str then we should encode it
+        secret = secret.encode("ascii")
+    except AttributeError:
+        # Hopefully it failed because it already is a bytes object
+        pass
+
+    try:
         digest = hmac.digest(secret, request.get_data(), "sha1")
     except AttributeError:  # Python < 3.7, using older & slower approach
         h = hmac.new(secret, request.get_data(), "sha1")

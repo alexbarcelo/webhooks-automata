@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="webhooks_git_automata",
-    version="0.0.2",
+    version="0.0.3",
     author="Alex Barcelo",
     author_email="alex@betarho.net",
     description="Webhook receiver for Git deployments",
