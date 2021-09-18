@@ -7,7 +7,7 @@ from flask import Flask
 
 from .settings import Configuration
 from .worker import async_worker
-from .automata import Automata
+from .automata import automata
 from . import providers
 
 
@@ -26,18 +26,10 @@ def main_func():
     Thread(target=async_worker,
            name="webhook worker").start()
 
-    try:
-        webhook_func = getattr(providers, "webhook_%s" % Configuration.provider)
-    except AttributeError:
-        raise RuntimeError("Could not prepare the webhook for provider %s. "
-                           "Maybe it is not supported?" % Configuration.provider)
+    for name, automaton in automata.items():
+        app.add_url_rule(f'{ Configuration.webhook_url_path }/{ name }', 
+                         name, automaton.to_flask_view())
 
-    webhook = partial(
-        webhook_func,
-        **Configuration.provider_options
-    )
-
-    app.add_url_rule('/webhook', 'webhook', webhook, methods=['POST'])
     app.run(host=Configuration.listen_ip,
             port=Configuration.listen_port)
 
@@ -45,13 +37,12 @@ def main_func():
 def manual_trigger():
     if len(sys.argv) != 3:
         raise RuntimeError("You should provide the path to the settings YAML file as first argument "
-                           "and the repository entry name (YAML key) that will be triggered")
+                           "and the name of the automaton to be triggered (YAML key)")
 
     Configuration.load(sys.argv[1])
     try:
-        automaton = Automata[sys.argv[2]]
+        automaton = automata[sys.argv[2]]
     except KeyError:
-        raise RuntimeError("Unrecognized repository name '%s'" % sys.argv[2])
+        raise RuntimeError("Unrecognized automaton name '%s'" % sys.argv[2])
 
-    automaton.pull_sources()
-    automaton.perform_commands()
+    automaton.perform_actions()

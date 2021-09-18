@@ -1,4 +1,3 @@
-import os
 from logging import getLogger
 from queue import Queue
 
@@ -34,10 +33,5 @@ def async_worker():
                         repo, branch, data["repository"]["name"], data["repository"]["html_url"])
             continue
 
-        automaton.pull_sources()
-
-        logger.debug("All git operations finished, proceeding to commands")
-
-        automaton.perform_commands()
-
-        logger.debug("All comands finished, job is done")
+        automaton.perform_actions()
+        logger.debug("All actions finished, job is done")
