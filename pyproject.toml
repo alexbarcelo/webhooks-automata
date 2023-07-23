@@ -1,0 +1,35 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "webhooks-automata"
+dynamic = ["version"]
+description = "Webhook receiver for flexible automations"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "Apache-2.0"
+authors = [
+  { name = "Alex Barcelo", email = "alex@betarho.net" },
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "starlette",
+    "uvicorn",
+    "pydantic>=2.0",
+    "click",
+    "pyyaml>=6.0.1",
+]
+
+[project.urls]
+"Source code" = "https://github.com/alexbarcelo/webhooks-automata"
+
+[project.scripts]
+wh-automatactl = "webhooks_automata.scripts:cli"
+
+[tool.hatch.version]
+path = "webhooks_automata/__init__.py"

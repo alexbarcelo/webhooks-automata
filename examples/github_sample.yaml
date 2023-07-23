@@ -1,0 +1,9 @@
+automata:
+- endpoint:
+    suffix: my_webhook
+    provider: github
+    secret_token: secret_token
+  action:
+    type: commands
+    commands:
+    - echo "Hello World"
