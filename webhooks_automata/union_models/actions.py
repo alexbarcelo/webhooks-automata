@@ -1,7 +1,7 @@
 import abc
 import asyncio
 from typing import Literal, TYPE_CHECKING, Union
-from pydantic import BaseModel
+from pydantic import BaseModel, ImportString
 
 if TYPE_CHECKING:
     import starlette.requests
@@ -49,7 +49,7 @@ class ScriptAction(ActionBase):
 
 class CallableAction(ActionBase):
     type: Literal["callable"]
-    callable: str
+    callable: ImportString
 
     async def perform_action(self, request):
         pass
