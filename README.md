@@ -51,6 +51,8 @@ INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
 - When a webhook is created, GitHub makes a "ping delivery". You can check in the Recent Deliveries
 tab if there was a problem with the webhook endpoint.
 
+If you are using ngrok, remember that you can diagnose stuff by going to http://127.0.0.1:4040
+
 Deploying the webhook server
 ----------------------------
 
