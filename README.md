@@ -1,3 +1,6 @@
+![PyPI - Version](https://img.shields.io/pypi/v/webhooks-automata)
+
+
 Webhook server for triggering automations
 =========================================
 
@@ -78,7 +81,7 @@ The `wh-automatactl` is a CLI that can be used to aid and complement the webhook
 
 You can check its documentation by calling `wh-automatactl --help`. Keep in mind that this
 CLI will be accessible from within the virtual environment; that typically means that the
-script can be found in /pat/to/venv/bin/wh-automatactl.
+script can be found in /path/to/venv/bin/wh-automatactl.
 
 Implementation details
 ----------------------
