@@ -1,4 +1,4 @@
-starlette==0.30.0
+starlette==0.36.2
 uvicorn==0.23.1
 pydantic==2.4.0
 click==8.1.6
